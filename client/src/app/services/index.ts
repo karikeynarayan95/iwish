@@ -1,0 +1,6 @@
+export {BookService} from './book.service'
+export {AuthorService} from './author.service'
+export {CategoryService} from './category.service'
+export {PublisherService} from './publisher.service'
+export {ApiService} from './api.service'
+export {AuthService} from './auth.service'

@@ -1,0 +1,70 @@
+<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle></button>
+  <div class="title-bar-title">Menu</div>
+  <div class="title-bar-right">{{title}}</div>
+</div>
+
+<div class="top-bar" id="example-menu">
+  <div class="title-bar-title show-for-medium">
+    <li class="menu-text">{{title}}</li>
+  </div>
+  <div class="row">
+    <ul class="vertical medium-horizontal menu align-center">
+      <li *ngIf="isLoggedIn">
+        <a
+          [routerLink]="['']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          >
+          <span
+            class="show-for-small-only"
+            (click)="onSelectedPage()"
+            >
+            <i class="mdi mdi-home"></i>
+          </span> Home
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <a
+          [routerLink]="['', 'browse']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          >
+          <span
+            class="show-for-small-only"
+            (click)="onSelectedPage()"
+            >
+            <i class="mdi mdi-sitemap"></i>
+          </span> Browse
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn" >
+        <a
+          [routerLink]="['', 'add']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          >
+          <span
+            class="show-for-small-only"
+            (click)="onSelectedPage()"
+            >
+            <i class="mdi mdi-plus-circle"></i>
+          </span> Add
+      </a></li>
+      <li>
+        <a
+          [routerLink]="['', 'login']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          (click)="signout()"
+          >
+          <span
+            class="show-for-small-only"
+            (click)="onSelectedPage()"
+            >
+            <i class="mdi mdi-plus-circle"></i>
+          </span> {{isLoggedIn ? 'Signout' : 'Login'}}
+      </a></li>
+    </ul>
+  </div>
+</div>

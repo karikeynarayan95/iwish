@@ -1,0 +1,64 @@
+form label {
+  font-size: 1.2em
+}
+
+form .radio label {
+  font-size: 0.875em
+}
+
+h3 {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  font-weight: bold;
+  color: #31353D;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+form {
+  padding-right: 1.5em;
+  border-right: 2px solid #eee
+}
+
+.ng-invalid.ng-dirty {
+  border-right: 3px solid red;
+}
+
+.error p {
+  color: red;
+  position: relative;
+  font-size: 0.675em;
+}
+
+@media print, screen and (min-width: 40em) {
+
+  form h3 {
+      font-size: 1.1em
+  }
+
+  form label {
+    font-size: 1.1em
+  }
+
+}
+
+@media screen and (max-width: 39.9375em) {
+
+  h3 {
+      margin: 0em
+  }
+  
+  form label {
+    font-size: 1.1em
+  }
+
+  form .radio label {
+    font-size: 0.875em
+  }
+
+  form {
+    padding: 1em;
+    border-right: none;
+    border-bottom: 2px dashed #eee
+  }
+}

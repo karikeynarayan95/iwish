@@ -1,0 +1,91 @@
+<h3>
+  <i class="mdi mdi-book-open-page-variant"></i> {{headTitle}}
+</h3>
+
+<form (ngSubmit)="searchBook(searchForm.value)" #searchForm="ngForm">
+  <fieldset ngModelGroup="search">
+    <div class="row">
+      <div class="columns">
+        <label><i class="mdi mdi-buffer"></i> Title
+          <input
+            placeholder="title"
+            name="title"
+            type="text"
+            pattern="[a-zA-Z0-9 ]+"
+            ngModel
+            #titleRef="ngModel"
+            (input)="searchByTitle($event.target.value)"
+            >
+        </label>
+
+        <div
+          class="error"
+          [hidden]="titleRef.valid || titleRef.pristine">
+          <p>
+            Invalid input
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="columns">
+        <label><i class="mdi mdi-account"></i> Author
+          <select
+            id="author"
+            name="author"
+            ngModel
+            #authorRef="ngModel"
+            >
+            <option value="">Select an author</option>
+            <option *ngFor="let author of authors" [ngValue]="author.name">{{author.name}}</option>
+          </select>
+        </label>
+        <div
+          class="error"
+          [hidden]="authorRef.valid || authorRef.pristine">
+          <p>
+            Invalid input
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="columns">
+        <label><i class="mdi mdi-currency-usd"></i> Price
+          <input
+            placeholder="price"
+            name="price"
+            type="text"
+            pattern="^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$"
+            ngModel
+            #priceRef="ngModel"
+            (input)="searchByPrice($event.target.value)"
+            >
+        </label>
+        <div
+          class="error"
+          [hidden]="priceRef.valid || priceRef.pristine">
+          <p>
+            Invalid input
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-center radio">
+      <input type="radio" name="filter" value="lower" id="lower" ngModel>
+      <label for="lower">Lower than</label>
+
+      <input type="radio" name="filter" value="higher" id="higher" ngModel>
+      <label for="higher">Higher than</label>
+    </div>
+
+    <div class="row align-center">
+      <button class="button" type="submit">
+        <i class="mdi mdi-magnify"></i> Search
+      </button>
+    </div>
+  </fieldset>
+</form>

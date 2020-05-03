@@ -1,0 +1,20 @@
+<div class="row expanded show">
+  <div class="small-12 medium-3 columns">
+    <search-book
+      [headTitle]="'Search book'"
+      (searchObj)="searchBook($event)"
+      (searchTitle)="searchBook($event)"
+      (searchAuthor)="searchBook($event)"
+      (searchPrice)="searchBook($event)"
+      >
+    </search-book>
+  </div>
+  <div class="small-12 medium-9 columns">
+    <book
+      *ngFor="let book of books | filterBook: filters"
+      [book]="book"
+      (action)="makeAction($event)"
+      >
+    </book>
+  </div>
+</div>

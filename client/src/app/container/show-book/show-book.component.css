@@ -1,0 +1,9 @@
+.show {
+  padding: 0em 2em;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .show {
+    padding: 0em .5em;
+  }
+}

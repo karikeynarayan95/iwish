@@ -1,0 +1,245 @@
+<div class="row align-center">
+  <h2>{{pageTitle}} <i class="mdi mdi-pen"></i> </h2>
+</div>
+
+<form  (ngSubmit)="startUpload()" #bookForm="ngForm">
+  <fieldset ngModelGroup="book">
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-layers"></i> Title
+          <input
+            placeholder="title"
+            name="title"
+            type="text"
+            pattern="[a-zA-Z0-9 ]+"
+            required
+            ngModel
+            #titleRef="ngModel"
+            >
+          <div
+            class="error"
+            [hidden]="titleRef.valid || titleRef.pristine">
+            <p>
+              Title must be filled, it's required.
+            </p>
+          </div>
+
+        </label>
+      </div>
+
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-account"></i> Author
+          <select
+            id="author"
+            name="author"
+            required
+            ngModel
+            #authorRef="ngModel"
+            >
+            <option value="">Select an author</option>
+            <option *ngFor="let author of authors" [ngValue]="author.name">{{author.name}}</option>
+          </select>
+        </label>
+        <div
+          class="error"
+          [hidden]="authorRef.valid || authorRef.pristine">
+          <p>
+            Author must be selected, it's required.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-layers"></i> Category
+          <select
+            id="category"
+            name="category"
+            required
+            ngModel
+            #categoryRef="ngModel"
+            >
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [ngValue]="category.name">{{category.name}}</option>
+          </select>
+          <div
+            class="error"
+            [hidden]="categoryRef.valid || categoryRef.pristine">
+            <p>
+              Category must be selected, it's required.
+            </p>
+          </div>
+        </label>
+      </div>
+
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-account"></i> Publisher
+          <select
+            id="publisher"
+            name="publisher"
+            required
+            ngModel
+            #publisherRef="ngModel"
+            >
+            <option value="">Select a publisher</option>
+            <option *ngFor="let publisher of publishers" [ngValue]="publisher.name">{{publisher.name}}</option>
+          </select>
+        </label>
+        <div
+          class="error"
+          [hidden]="publisherRef.valid || publisherRef.pristine">
+          <p>
+            Publisher must be selected, it's required.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-calendar"></i> Publication
+          <input
+            type="date"
+            placeholder="publication"
+            name="publication"
+            required
+            ngModel
+            #publicationRef="ngModel"
+            (input)="verifyDate($event.target.value)"
+            >
+            <div
+              class="error"
+              [hidden]="publicationRef.valid || publicationRef.pristine">
+              <p>
+                Date is larger or not been set, it's required.
+              </p>
+            </div>
+        </label>
+      </div>
+
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-barcode"></i> ISBN
+          <input
+            type="text"
+            placeholder="123abc"
+            name="isbn"
+            pattern="((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])"
+            required
+            ngModel
+            #isbnRef="ngModel"
+            [disabled]="edit"
+            >
+
+            <div
+              class="error"
+              [hidden]="isbnRef.valid || isbnRef.pristine">
+              <p>
+                ISBN must be filled, it's required.
+              </p>
+            </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-currency-usd"></i> Price
+          <input
+            type="number"
+            placeholder="$100"
+            name="price"
+            pattern="^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$"
+            required
+            ngModel
+            #priceRef="ngModel"
+            >
+        </label>
+        <div
+          class="error"
+          [hidden]="priceRef.valid || priceRef.pristine">
+          <p>
+            Price must be filled, it's required.
+          </p>
+        </div>
+      </div>
+
+      <div class="small-12 medium-6 columns">
+        <label><i class="mdi mdi-image"></i> Image
+
+          <div *ngIf="previewData">
+            <h5>Preview image</h5>
+            <img [src]="previewData" style="background: white; width: 250px">
+          </div>
+
+          <div class="drag-n-drop-container file-over"
+                accept="image/x-png, image/jpeg"
+                ngFileDrop
+                [options]="options"
+                (onUpload)="handleUpload($event)"
+                [ngClass]="{'file-over': hasBaseDropZoneOver}"
+                (onFileOver)="fileOverBase($event)">
+            <div *ngIf="!previewData">
+              <h5 align="center">Drag & Drop</h5>
+              <h3 align="center">
+                <i class="mdi mdi-download"></i>
+              </h3>
+            </div>
+            <label class="upload-button">
+              <input type="file"
+                     class="button hidden"
+                     accept="image/x-png, image/jpeg"
+                     ngFileSelect
+                     [options]="options"
+                     [events]="events"
+                     (onUpload)="handleUpload($event)"
+                     (onPreviewData)="handlePreviewData($event)">
+            </label>
+          </div>
+        </label>
+
+        <div
+          class="error"
+          [hidden]="priceRef.valid || priceRef.pristine">
+          <p>
+            Price must be filled, it's required.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-valuetext="50 percent" aria-valuemax="100">
+      <span class="progress-meter" [ngStyle]="progressBar">
+        <p class="progress-meter-text">{{progress}}%</p>
+      </span>
+    </div>
+
+    <div class="row align-center">
+      <div class="column small-4">
+        <button
+          class="button"
+          type="submit"
+          [disabled]="!bookForm.form.valid"
+          >
+            {{action}}
+        </button>
+      </div>
+      <div class="column small-4">
+        <button
+          class="button"
+          (click)="reset()"
+          [disabled]="!bookForm.form.valid"
+        >
+          Reset</button>
+      </div>
+
+      <div [hidden]="!edit" class="column small-4">
+        <button
+          class="button"
+          [routerLink]="['', 'browse']"
+        >
+          Cancel</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
